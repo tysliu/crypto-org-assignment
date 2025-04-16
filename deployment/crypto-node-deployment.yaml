@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crypto-node
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: crypto-node-data
+  namespace: crypto-node
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3000Gi
+  storageClassName: gp2
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: crypto-node
+  namespace: crypto-node
+spec:
+  serviceName: "crypto-node"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crypto-node
+  template:
+    metadata:
+      labels:
+        app: crypto-node
+    spec:
+      containers:
+      - name: crypto-node
+        image: 683665563565.dkr.ecr.us-east-1.amazonaws.com/crypto-org-node:latest
+        args: ["start"]
+        ports:
+        - containerPort: 26656
+          name: p2p
+        - containerPort: 26657
+          name: tendermint-rpc
+        - containerPort: 1317
+          name: rest-api
+        - containerPort: 9090
+          name: grpc
+        resources:
+          requests:
+            cpu: "4"
+            memory: "64Gi"
+          limits:
+            cpu: "4"
+            memory: "64Gi"
+        volumeMounts:
+        - name: crypto-node-data
+          mountPath: /crypto-chain
+        env:
+        - name: NODE_HOME
+          value: "/crypto-chain"
+        - name: CHAIN_ID
+          value: "crypto-org-chain-mainnet-1"
+      volumes:
+      - name: crypto-node-data
+        persistentVolumeClaim:
+          claimName: crypto-node-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crypto-node-service
+  namespace: crypto-node
+spec:
+  selector:
+    app: crypto-node
+  ports:
+  - name: tendermint-rpc
+    port: 26657
+    targetPort: 26657
+    protocol: TCP
+  - name: rest-api
+    port: 1317
+    targetPort: 1317
+    protocol: TCP
+  - name: grpc
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  type: ClusterIP
