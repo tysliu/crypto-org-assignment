@@ -1,0 +1,60 @@
+crypto-org-node  | Starting Crypto.org Chain node...
+crypto-org-node  | 8:01AM INF starting node with ABCI Tendermint in-process
+crypto-org-node  | 8:01AM INF service start impl=multiAppConn module=proxy msg={}
+crypto-org-node  | 8:01AM INF service start connection=query impl=localClient module=abci-client msg={}
+crypto-org-node  | 8:01AM INF service start connection=snapshot impl=localClient module=abci-client msg={}
+crypto-org-node  | 8:01AM INF service start connection=mempool impl=localClient module=abci-client msg={}
+crypto-org-node  | 8:01AM INF service start connection=consensus impl=localClient module=abci-client msg={}
+crypto-org-node  | 8:01AM INF service start impl=EventBus module=events msg={}
+crypto-org-node  | 8:01AM INF service start impl=PubSub module=pubsub msg={}
+crypto-org-node  | 8:01AM INF service start impl=IndexerService module=txindex msg={}
+crypto-org-node  | 8:01AM INF ABCI Handshake App Info hash= height=0 module=consensus protocol-version=0 software-version=4.2.14
+crypto-org-node  | 8:01AM INF ABCI Replay Blocks appHeight=0 module=consensus stateHeight=0 storeHeight=0
+crypto-org-node  | 8:01AM INF initializing blockchain state from genesis.json
+crypto-org-node  | panic: runtime error: invalid memory address or nil pointer dereference
+crypto-org-node  | [signal SIGSEGV: segmentation violation code=0x1 addr=0x10 pc=0x152ee69]
+crypto-org-node  |
+crypto-org-node  | goroutine 66 [running]:
+crypto-org-node  | math/big.(*Int).Sign(...)
+crypto-org-node  | 	math/big/int.go:48
+crypto-org-node  | github.com/cosmos/cosmos-sdk/types.Dec.IsNegative(...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/types/decimal.go:211
+crypto-org-node  | github.com/cosmos/cosmos-sdk/x/staking/types.validateMinCommissionRate({0x2dfa800?, 0x0?})
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/x/staking/types/params.go:226 +0x49
+crypto-org-node  | github.com/cosmos/cosmos-sdk/x/params/types.Subspace.SetParamSet({{0x3d4fd60, 0xc0017085f0}, 0xc0001701b0, {0x3d215a8, 0xc00054f710}, {0x3d215d0, 0xc00054f830}, {0xc000057098, 0x7, 0x18}, ...}, ...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/x/params/types/subspace.go:262 +0x1c4
+crypto-org-node  | github.com/cosmos/cosmos-sdk/x/staking/keeper.Keeper.SetParams(...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/x/staking/keeper/params.go:71
+crypto-org-node  | github.com/cosmos/cosmos-sdk/x/staking/keeper.Keeper.InitGenesis({{0x3d215a8, 0xc00054f6c0}, {0x3d4fd60, 0xc0017085f0}, {0x3d40260, 0xc0006e3180}, {0x7fffb8727ad0, 0xc000209600}, {0x3d4e5c8, 0xc000013920}, ...}, ...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/x/staking/keeper/genesis.go:28 +0x1a6
+crypto-org-node  | github.com/cosmos/cosmos-sdk/x/staking.AppModule.InitGenesis({{{0x3d58540, 0xc0017085f0}}, {{0x3d215a8, 0xc00054f6c0}, {0x3d4fd60, 0xc0017085f0}, {0x3d40260, 0xc0006e3180}, {0x7fffb8727ad0, 0xc000209600}, ...}, ...}, ...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/x/staking/module.go:152 +0xe5
+crypto-org-node  | github.com/cosmos/cosmos-sdk/types/module.(*Manager).InitGenesis(_, {{0x3d3c720, 0x53ea480}, {0x3d50150, 0xc00128b9c0}, {{0x0, 0x0}, {0xc00162c140, 0x1a}, 0x0, ...}, ...}, ...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/types/module/module.go:322 +0x33f
+crypto-org-node  | github.com/crypto-org-chain/chain-main/v4/app.(*ChainApp).InitChainer(_, {{0x3d3c720, 0x53ea480}, {0x3d50150, 0xc00128b9c0}, {{0x0, 0x0}, {0xc00162c140, 0x1a}, 0x0, ...}, ...}, ...)
+crypto-org-node  | 	github.com/crypto-org-chain/chain-main/v4/app/app.go:772 +0x1c5
+crypto-org-node  | github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).InitChain(0xc0007708c0, {{0x0, 0xed7edd790, 0x0}, {0xc00162c140, 0x1a}, 0xc0004b96c0, {0x53ea480, 0x0, 0x0}, ...})
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/baseapp/abci.go:71 +0x3f5
+crypto-org-node  | github.com/tendermint/tendermint/abci/client.(*localClient).InitChainSync(0xc001276720, {{0x0, 0xed7edd790, 0x0}, {0xc00162c140, 0x1a}, 0xc0004b96c0, {0x53ea480, 0x0, 0x0}, ...})
+crypto-org-node  | 	github.com/tendermint/tendermint/abci/client/local_client.go:272 +0xf8
+crypto-org-node  | github.com/tendermint/tendermint/proxy.(*appConnConsensus).InitChainSync(0x0?, {{0x0, 0xed7edd790, 0x0}, {0xc00162c140, 0x1a}, 0xc0004b96c0, {0x53ea480, 0x0, 0x0}, ...})
+crypto-org-node  | 	github.com/tendermint/tendermint/proxy/app_conn.go:77 +0x55
+crypto-org-node  | github.com/tendermint/tendermint/consensus.(*Handshaker).ReplayBlocksWithContext(_, {_, _}, {{{0xb, 0x0}, {0x2e1a090, 0x7}}, {0xc00162c140, 0x1a}, 0x1, ...}, ...)
+crypto-org-node  | 	github.com/tendermint/tendermint/consensus/replay.go:336 +0xe78
+crypto-org-node  | github.com/tendermint/tendermint/consensus.(*Handshaker).HandshakeWithContext(0xc001530a70, {0x3d3ccb0, 0x53ea480}, {0x3d53d30, 0xc000ff4340})
+crypto-org-node  | 	github.com/tendermint/tendermint/consensus/replay.go:274 +0x398
+crypto-org-node  | github.com/tendermint/tendermint/node.doHandshake({_, _}, {_, _}, {{{0xb, 0x0}, {0x2e1a090, 0x7}}, {0xc00162c140, 0x1a}, ...}, ...)
+crypto-org-node  | 	github.com/tendermint/tendermint/node/node.go:330 +0x1a9
+crypto-org-node  | github.com/tendermint/tendermint/node.NewNodeWithContext({0x3d3ccb0, 0x53ea480}, 0xc001188b40, {0x3d26900, 0xc0004f6140}, 0xc0001172d0, {0x3d17060, 0xc0004c8708}, 0xc001083980, 0x399c610, ...)
+crypto-org-node  | 	github.com/tendermint/tendermint/node/node.go:797 +0x577
+crypto-org-node  | github.com/tendermint/tendermint/node.NewNode(0x0?, {0x3d26900?, 0xc0004f6140?}, 0x0?, {0x3d17060?, 0xc0004c8708?}, 0x1?, 0x53ea480?, 0x0?, {0x3d3c6e8, ...}, ...)
+crypto-org-node  | 	github.com/tendermint/tendermint/node/node.go:719 +0xa9
+crypto-org-node  | github.com/cosmos/cosmos-sdk/server.startInProcess(_, {{0x0, 0x0, 0x0}, {0x3d64830, 0xc0014d27b0}, 0x0, {0xc0012c7e40, 0x1a}, {0x3d58540, ...}, ...}, ...)
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/server/start.go:301 +0x73a
+crypto-org-node  | github.com/cosmos/cosmos-sdk/server.StartCmd.func2.2()
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/server/start.go:147 +0x45
+crypto-org-node  | github.com/cosmos/cosmos-sdk/server.wrapCPUProfile.func2()
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/server/start.go:535 +0x23
+crypto-org-node  | created by github.com/cosmos/cosmos-sdk/server.wrapCPUProfile in goroutine 1
+crypto-org-node  | 	github.com/cosmos/cosmos-sdk/server/start.go:534 +0x23f
+crypto-org-node exited with code 2
