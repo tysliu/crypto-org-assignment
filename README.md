@@ -3,7 +3,7 @@
 ## Q1: Observer Node Setup
 
 ### Overview
-- The observer node is set up using AWS / Terraform / Helm
+- The observer node is set up using AWS / Terraform
 - **Note**: I was unable to start the node but was able to complete the infrastructure code. I've attached the node startup error log in `crypto-node.log`.
 
 ### Implementation Details
