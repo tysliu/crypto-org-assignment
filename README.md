@@ -9,7 +9,7 @@
 ### Implementation Details
 - **Infrastructure Components**:
   - `./infra`: Terraform files for AWS infrastructure
-  - `./deployment`: Dockerfile, entrypoint.sh andcrypto-node-deployment.yaml
+  - `./deployment`: `Dockerfile`, `entrypoint.sh` and `crypto-node-deployment.yaml`
 
 - **Network Configuration**:
   - Both Tendermint RPC and Cosmos RPC are exposed on ports (1317/26657) as Kubernetes services
@@ -117,7 +117,7 @@
 
 ### Implementation Details
 - **Infrastructure Components**:
-  - `./deployment`: blockchain-proxy-deployment.yaml
+  - `./deployment`: `blockchain-proxy-deployment.yaml`
   - `blockchain-proxy.log`
 
 - **Configuration**:

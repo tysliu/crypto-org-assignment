@@ -87,3 +87,23 @@ spec:
     targetPort: 9090
     protocol: TCP
   type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: crypto-node-monitor
+  namespace: crypto-node
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: crypto-node
+      service: metrics
+  namespaceSelector:
+    matchNames:
+      - crypto-node
+  endpoints:
+  - port: metrics
+    interval: 15s
+    path: /metrics
