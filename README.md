@@ -117,11 +117,12 @@
 
 ### Implementation Details
 - **Infrastructure Components**:
-  - `./deployment`: `blockchain-proxy-deployment.yaml`
+  - `./deployment`: `blockchain-proxy-deployment.yaml`, `filebeat-deployment.yaml`
   - `blockchain-proxy.log`
 
 - **Configuration**:
   - rate limiting is done using default nginx feature can be found on the configMap in blockchain-proxy-deployment.yaml.
+  - Since all nginx logs needs to be audited. I've chosen to use filebeat. Elasticserach along with elastalert maybe a good tool set to audit fresh logs and send alerts.
 
 ### mTLS Implementation
 
